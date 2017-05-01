@@ -13,7 +13,7 @@ export class LoginPage {
 
   loading: any;
   loginData = { email:'', password:'' };
-  data: any;
+  token: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -27,13 +27,9 @@ export class LoginPage {
     this.showLoader();
     this.authService.login(this.loginData).then((result) => {
       this.loading.dismiss();
-      this.data = result;
+      this.token = result;
       this.storage.ready().then(() => {
-        this.storage.set('token', this.data.access_token);
-        console.log(this.data.access_token);
-        this.storage.get('token').then((val) => {
-         console.log(val);
-        })
+        this.storage.set('token', this.token);
       });
       this.navCtrl.setRoot(TabsPage);
     }, (err) => {

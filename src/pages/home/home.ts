@@ -19,10 +19,10 @@ export class HomePage {
   }
 
   logout() {
+    this.showLoader();
     this.authService.logout().then((result) => {
       this.loading.dismiss();
-      let nav = this.app.getRootNav();
-      nav.setRoot(LoginPage);
+      this.navCtrl.setRoot(LoginPage);
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
